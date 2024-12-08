@@ -59,5 +59,3 @@ ram.runtime = "0M"
 
     [resources.permissions]
     main.url = "/"
-
-    [resources.ports]
