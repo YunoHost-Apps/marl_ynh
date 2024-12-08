@@ -1,9 +1,9 @@
 packaging_format = 2
 
 id = "marl"
-name = "Mastodon Archive Reader Lite (MARL)"
-description.en = "A lightweight single-page app to explore the contents of your Mastodon archive file"
-description.fr = "Une application légère tenant sur une page pour explorer le contenu de votre fichier d'archive Mastodon"
+name = "MARL"
+description.en = "Single-page app to explore the contents of your Mastodon archive file"
+description.fr = "Application pour explorer le contenu de votre fichier d'archive Mastodon"
 
 version = "1.0~ynh1"
 
@@ -21,8 +21,8 @@ helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
 
-ldap = "not_relevant"
-sso = "not_relevant"
+ldap = false
+sso = false
 
 disk = "10M"
 ram.build = "0M"
