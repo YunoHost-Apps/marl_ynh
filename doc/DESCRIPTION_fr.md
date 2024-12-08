@@ -1,1 +1,1 @@
-Ceci est une fausse description des fonctionalités de l'app
+Mastodon Archive Reader Lite (MARL) est une application légère tenant sur une page qui fournit une interface attrayante pour explorer le contenu d'une archive Mastodon: données de compte, posts, pièces jointes, etc.
