@@ -12,6 +12,7 @@ maintainers = ["oleole39"]
 [upstream]
 license = "Apache-2.0"
 demo = "https://s427.github.io/MARL"
+userdoc = "https://github.com/s427/MARL?tab=readme-ov-file#usage"
 code = "https://github.com/s427/MARL"
 
 [integration]
