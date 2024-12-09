@@ -3,17 +3,17 @@ Ohart ongi: README hau automatikoki sortu da <https://github.com/YunoHost/apps/t
 EZ editatu eskuz.
 -->
 
-# Mastodon Archive Reader Lite YunoHost-erako
+# MARL YunoHost-erako
 
 [![Integrazio maila](https://apps.yunohost.org/badge/integration/marl)](https://ci-apps.yunohost.org/ci/apps/marl/)
 ![Funtzionamendu egoera](https://apps.yunohost.org/badge/state/marl)
 ![Mantentze egoera](https://apps.yunohost.org/badge/maintained/marl)
 
-[![Instalatu Mastodon Archive Reader Lite YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=marl)
+[![Instalatu MARL YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=marl)
 
 *[Irakurri README hau beste hizkuntzatan.](./ALL_README.md)*
 
-> *Pakete honek Mastodon Archive Reader Lite YunoHost zerbitzari batean azkar eta zailtasunik gabe instalatzea ahalbidetzen dizu.*  
+> *Pakete honek MARL YunoHost zerbitzari batean azkar eta zailtasunik gabe instalatzea ahalbidetzen dizu.*  
 > *YunoHost ez baduzu, kontsultatu [gida](https://yunohost.org/install) nola instalatu ikasteko.*
 
 ## Aurreikuspena
@@ -29,7 +29,7 @@ It runs in-browser and does not store any user data on the server (apart from th
 
 ## Pantaila-argazkiak
 
-![Mastodon Archive Reader Lite(r)en pantaila-argazkia](./doc/screenshots/marl_ynh.png)
+![MARL(r)en pantaila-argazkia](./doc/screenshots/marl_ynh.png)
 
 ## Dokumentazioa eta baliabideak
 
