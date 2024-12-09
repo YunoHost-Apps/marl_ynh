@@ -1,7 +1,7 @@
 packaging_format = 2
 
 id = "marl"
-name = "Mastodon Archive Reader Lite"
+name = "MARL"
 description.en = "Single-page app to explore the contents of your Mastodon archive file"
 description.fr = "Application pour explorer le contenu de votre fichier d'archive Mastodon"
 
