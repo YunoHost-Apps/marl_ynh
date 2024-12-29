@@ -51,6 +51,7 @@ ram.runtime = "0M"
         extract = true
         in_subdir = true
         autoupdate.strategy = "latest_github_tag"
+        autoupdate.version_regex = "^v(.*)$"
 
     [resources.system_user]
 
