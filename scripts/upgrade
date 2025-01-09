@@ -7,8 +7,13 @@ source /usr/share/yunohost/helpers
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
-	
-ynh_setup_source --dest_dir="$install_dir" --full_replace
+
+ynh_safe_rm $install_dir
+mkdir -p $install_dir
+temp_dir=$(mktemp -d)
+ynh_setup_source --dest_dir="$temp_dir"
+mv $temp_dir/dist/* $install_dir #keep only the content of `dist` folder
+ynh_safe_rm $temp_dir
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
@@ -20,5 +25,4 @@ ynh_config_add_nginx
 #=================================================
 # END OF SCRIPT
 #=================================================
-
 ynh_script_progression "Upgrade of $app completed"

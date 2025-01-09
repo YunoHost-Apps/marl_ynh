@@ -8,7 +8,10 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Setting up source files..."
 
-ynh_setup_source --dest_dir="$install_dir"
+temp_dir=$(mktemp -d)
+ynh_setup_source --dest_dir="$temp_dir"
+mv $temp_dir/dist/* $install_dir #keep only the content of `dist` folder
+ynh_safe_rm $temp_dir
 
 #=================================================
 # SYSTEM CONFIGURATION
