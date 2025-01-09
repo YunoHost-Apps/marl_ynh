@@ -9,6 +9,9 @@ source /usr/share/yunohost/helpers
 ynh_script_progression "Setting up source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
+find "$install_dir/" -maxdepth 1 -not -path './dist' -exec ynh_safe_rm {} \; #keep only dist folder
+mv "$install_dir/dist/*" "$install_dir"
+rmdir dist
 
 #=================================================
 # SYSTEM CONFIGURATION
