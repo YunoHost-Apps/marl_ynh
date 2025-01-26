@@ -23,7 +23,7 @@ Mastodon Archive Reader Lite (MARL) is a lightweight, single-page app that provi
 It runs in-browser and does not store any user data on the server (apart from the access log as per your YNH configuration).
 
 
-**Shipped version:** 2.2~ynh1
+**Shipped version:** 2.3~ynh1
 
 **Demo:** <https://s427.github.io/MARL>
 
