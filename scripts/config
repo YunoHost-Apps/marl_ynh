@@ -27,14 +27,19 @@ install_dir=$(ynh_app_setting_get --key=install_dir)
 #=================================================
 
 get__archives_paths() {
-    local servers
-    # Get servers list stored in $install_dir/js/config.js
-    servers=($(sed -n '/^const servers/{:start /\];/!{N;b start};/^const servers = \[.*\];/p}' $install_dir/js/config.js | grep -oE '"[^"]+"' | sed 's/"//g')) # array
-    if [ ${#servers[@]} = 0 ]; then
-        echo YNH_NULL
-    else
-        echo "$servers"
+    if [ -f $install_dir/js/config.js ]; then
+        local servers
+        # Get servers list stored in $install_dir/js/config.js
+        servers=($(sed -n '/^const servers/{:start /\];/!{N;b start};/^const servers = \[.*\];/p}' $install_dir/js/config.js | grep -oE '"[^"]+"' | sed 's/"//g')) # array
+        if [ "${#servers[@]}" > 0 ]; then
+            echo "$servers"
+        else
+            echo ""
+        fi
+    else 
+        echo ""
     fi
+
 }
 
 #=================================================
@@ -42,18 +47,22 @@ get__archives_paths() {
 #=================================================
 
 set__archives_paths() {
-    if [ -n $archives_paths ]; then
+    # We do not use ynh_app_setting_set (nor ynh_add_config) because config.js is not created 
+    # by default at install (cf. https://github.com/s427/MARL/blob/main/dist/js/config.default.js) 
+    # and thus should not risk being overwritten during next execution of upgrade script.
+    if [ -n "$archives_paths" ]; then
+        ynh_script_progression "Creating or updating MARL server mode config file ..."
         echo "const servers = [" > $install_dir/js/config.js # overwrite file if it already exists
         while IFS= read -r server_path; do
             echo "  \"$(echo $server_path | tr -d ' ')\"," >> $install_dir/js/config.js
         done <<< "$archives_paths"
         echo "];" >> $install_dir/js/config.js
-    else 
+    else
+        ynh_script_progression "Removing MARL server mode config file ..."
         rm $install_dir/js/config.js
     fi
-    
-    # We do not use ynh_app_setting_set (nor ynh_add_config) because config.js is not created by default at install (cf. https://github.com/s427/MARL/blob/main/dist/js/config.default.js) and thus should not be overwritten by the upgrade script.
 }
+
 
 #=================================================
 ynh_app_config_run "$1"
