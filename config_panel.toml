@@ -1,0 +1,20 @@
+#:schema https://github.com/YunoHost/apps/raw/master/schemas/config_panel.v1.schema.json
+
+version = "1.0"
+
+[main]
+name.en = "Main configuration"
+name.fr = "Configuration principale"
+services = ["__APP__"]
+
+    [main.server_mode]
+    name.en = "Server mode"
+    name.fr = "Mode serveur"
+
+        [main.server_mode.archives_paths]
+        ask.en = "Mastodon archive(s) to display"
+        ask.fr = "Archive(s) Mastodon à afficher"
+        type = "text"
+        default = "https://example.xn--zfr164b/@handle/"
+        help.en = "List one path to uncompressed Mastodon archive directory per line. Path can also point to external servers provided CORS are enabled."
+        help.fr = "Indiquez un chemin vers un dossier contenant une archive décompressée de Mastodon par ligne. Les chemins peuvent pointer vers des serveurs externes pourvu que les CORS soient activées.
