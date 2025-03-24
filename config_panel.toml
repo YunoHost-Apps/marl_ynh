@@ -5,14 +5,14 @@ version = "1.0"
 [main]
 name.en = "Main configuration"
 name.fr = "Configuration principale"
-
+help.en = "MARL runs in local mode by default, i.e. it processes all data within the user's browser and nothing is sent to the server.\nBy adding archives paths below, you can change this MARL instance to Server Mode in which users with permission to access this instance will be able to browse archive stored on the server(s) that you would have pointed to.\nMastodon archive file should be unpacked on your server (it can be sent to `/home/yunohost.app/marl` on this server via SFTP if you want it to be backed up together with the app), and you might want to purge the archive from private messages (you can use the tool [outbox cleanup (GitHub link)](https://github.com/s427/MARL/blob/main/tools/outbox-cleanup/readme.md) for that purpose)." 
+help.fr = "MARL fonctionne avec le mode Local par défault, c'est-à-dire que toutes les données sont traitées dans le navigateur de l'utilisateur et que rien n'est envoyé au serveur.\nEn indiquant un ou plusieurs chemins vers des dossiers d'archives Mastodon ci-dessous, vous pouvez passer cette instance de MARL en mode Serveur, qui permet aux utilisateurs autorisés à accéder à cette instance de parcourir les archives stockées sur le(s) serveur(s) indiqués.\nChaque archive Mastodon doit être extraite dans un dossier sur le serveur choisi (cela peut par exemple être sur ce serveur à l'emplacement `/home/yunohost.app/marl` avec un envoi en SFTP, si vous souhaitez que l'archive soit inclue dans chaque sauvegarde de l'application), et vous pourriez vouloir purger l'archive des messages privés qu'elle contient (pour ce faire il existe l'outil [outbox cleanup (lien GitHub)](https://github.com/s427/MARL/blob/main/tools/outbox-cleanup/readme.md))." 
+   
     [main.server_mode]
     name.en = "Server mode"
     name.fr = "Mode serveur"
     optional = true
-    help.en = "MARL runs in local mode by default, i.e. it processes all data within the user's browser and nothing is sent to the server.\nBy adding archives paths below, you can change this MARL instance to Server Mode in which users with permission to access this instance will be able to browse archive stored on the server(s) that you would have pointed to.\nMastodon archive file should be unpacked on your server (it can be sent to `/home/yunohost.app/marl` on this server via SFTP if you want it to be backed up together with the app), and you might want to purge the archive from private messages (you can use the tool [outbox cleanup (GitHub link)](https://github.com/s427/MARL/blob/main/tools/outbox-cleanup/readme.md) for that purpose)." 
-    help.fr = "MARL fonctionne avec le mode Local par défault, c'est-à-dire que toutes les données sont traitées dans le navigateur de l'utilisateur et que rien n'est envoyé au serveur.\nEn indiquant un ou plusieurs chemins vers des dossiers d'archives Mastodon ci-dessous, vous pouvez passer cette instance de MARL en mode Serveur, qui permet aux utilisateurs autorisés à accéder à cette instance de parcourir les archives stockées sur le(s) serveur(s) indiqués.\nChaque archive Mastodon doit être extraite dans un dossier sur le serveur choisi (cela peut par exemple être sur ce serveur à l'emplacement `/home/yunohost.app/marl` avec un envoi en SFTP, si vous souhaitez que l'archive soit inclue dans chaque sauvegarde de l'application), et vous pourriez vouloir purger l'archive des messages privés qu'elle contient (pour ce faire il existe l'outil [outbox cleanup (lien GitHub)](https://github.com/s427/MARL/blob/main/tools/outbox-cleanup/readme.md))." 
-    
+ 
         [main.server_mode.archives_paths]
         ask.en = "Mastodon archive(s) to display"
         ask.fr = "Archive(s) Mastodon à afficher"
