@@ -1,0 +1,85 @@
+#!/bin/bash
+# In simple cases, you don't need a config script.
+
+# With a simple config_panel.toml, you can write in the app settings, in the
+# upstream config file or replace complete files (logo ...) and restart services.
+
+# The config scripts allows you to go further, to handle specific cases
+# (validation of several interdependent fields, specific getter/setter for a value,
+# display dynamic informations or choices, pre-loading of config type .cube... ).
+
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
+
+source /usr/share/yunohost/helpers
+
+ynh_abort_if_errors
+
+#=================================================
+# RETRIEVE ARGUMENTS
+#=================================================
+
+install_dir=$(ynh_app_setting_get --key=install_dir)
+
+#=================================================
+# SPECIFIC GETTERS FOR TOML SHORT KEY
+#=================================================
+
+get__archives_paths() {
+    if [ -f $install_dir/js/config.js ]; then
+        local servers
+        # Get servers list stored in $install_dir/js/config.js
+        servers=($(sed -n '/^const servers/{:start /\];/!{N;b start};/^const servers = \[.*\];/p}' $install_dir/js/config.js | grep -oE '"[^"]+"' | sed 's/"//g')) # array
+        if [ "${#servers[@]}" > 0 ]; then
+            servers_str="$(printf "%s\\\n\\\n" "${servers[@]}")" # e.g. "line1\n\nline2\n\nline3\n\n"; it needs double newlines for proper display in the end
+            servers_str="${servers_str%\\n\\n}" # remove trailing group of 2 newlines if it exists 
+            echo "$servers_str"
+        else
+            echo ""
+        fi
+    else 
+        echo ""
+    fi
+}
+
+#=================================================
+# SPECIFIC SETTERS FOR TOML SHORT KEYS
+#=================================================
+
+set__archives_paths() {
+    # We do not use ynh_app_setting_set (nor ynh_add_config) because config.js is not created 
+    # by default at install (cf. https://github.com/s427/MARL/blob/main/dist/js/config.default.js) 
+    # and thus should not risk being overwritten during next execution of upgrade script.
+    if [ -n "$archives_paths" ]; then
+        ynh_script_progression "Creating or updating MARL server mode config file ..."
+        echo "const servers = [" > $install_dir/js/config.js # overwrite file if it already exists
+        while IFS= read -r server_path; do
+            echo "  \"$(echo $server_path | tr -d ' ')\"," >> $install_dir/js/config.js
+        done <<< "$archives_paths"
+        echo "];" >> $install_dir/js/config.js
+    else
+        ynh_script_progression "Removing MARL server mode config file ..."
+        rm $install_dir/js/config.js
+    fi
+}
+
+#=================================================
+# OVERWRITING SHOW STEP
+#=================================================
+
+ynh_app_config_show() {
+    for short_setting in "${!old[@]}"; do
+        if [[ "${old[$short_setting]}" != YNH_NULL ]]; then
+            if [[ "${formats[$short_setting]}" == "yaml" ]]; then
+                ynh_return "${short_setting}:"
+                ynh_return "$(echo -e "${old[$short_setting]}" | sed 's/^/  /g')" # tweaked from original _ynh_app_config_show() so that newlines (\n) are shown
+            else
+                ynh_return "${short_setting}: '$(echo "${old[$short_setting]}" | sed "s/'/''/g" | sed ':a;N;$!ba;s/\n/\n\n/g')'"
+            fi
+        fi
+    done
+}
+
+#=================================================
+ynh_app_config_run "$1"

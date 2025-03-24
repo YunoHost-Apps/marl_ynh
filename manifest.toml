@@ -5,7 +5,7 @@ name = "MARL"
 description.en = "Single-page app to explore the contents of your Mastodon archive file"
 description.fr = "Application pour explorer le contenu de votre fichier d'archive Mastodon"
 
-version = "2.6~ynh1"
+version = "2.6~ynh2"
 
 maintainers = ["oleole39"]
 
@@ -60,3 +60,5 @@ ram.runtime = "0M"
 
     [resources.permissions]
     main.url = "/"
+
+    [resources.data_dir] # Data directory might be optionally used by the instance admin if enabling the app's "server mode"
