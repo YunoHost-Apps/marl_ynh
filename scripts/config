@@ -32,14 +32,15 @@ get__archives_paths() {
         # Get servers list stored in $install_dir/js/config.js
         servers=($(sed -n '/^const servers/{:start /\];/!{N;b start};/^const servers = \[.*\];/p}' $install_dir/js/config.js | grep -oE '"[^"]+"' | sed 's/"//g')) # array
         if [ "${#servers[@]}" > 0 ]; then
-            echo "$servers"
+            servers_str="$(printf "%s\\\n\\\n" "${servers[@]}")" # e.g. "line1\n\nline2\n\nline3\n\n"; it needs double newlines for proper display in the end
+            servers_str="${servers_str%\\n\\n}" # remove trailing group of 2 newlines if it exists 
+            echo "$servers_str"
         else
             echo ""
         fi
     else 
         echo ""
     fi
-
 }
 
 #=================================================
@@ -63,6 +64,22 @@ set__archives_paths() {
     fi
 }
 
+#=================================================
+# OVERWRITING SHOW STEP
+#=================================================
+
+ynh_app_config_show() {
+    for short_setting in "${!old[@]}"; do
+        if [[ "${old[$short_setting]}" != YNH_NULL ]]; then
+            if [[ "${formats[$short_setting]}" == "yaml" ]]; then
+                ynh_return "${short_setting}:"
+                ynh_return "$(echo -e "${old[$short_setting]}" | sed 's/^/  /g')" # tweaked from original _ynh_app_config_show() so that newlines (\n) are shown
+            else
+                ynh_return "${short_setting}: '$(echo "${old[$short_setting]}" | sed "s/'/''/g" | sed ':a;N;$!ba;s/\n/\n\n/g')'"
+            fi
+        fi
+    done
+}
 
 #=================================================
 ynh_app_config_run "$1"
