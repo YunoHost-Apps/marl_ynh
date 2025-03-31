@@ -24,7 +24,7 @@ Elle s'execute par défaut en mode Local, c'est-à-dire dans le navigateur du vi
 Néanmoins, vous pouvez également choisir via son panneau de configuration de l'exécuter en mode Serveur, afin d'afficher en permanence une ou plusieurs archives Mastodon stockées en ligne.
 
 
-**Version incluse :** 2.6~ynh2
+**Version incluse :** 2.7~ynh1
 
 **Démo :** <https://s427.github.io/MARL>
 
