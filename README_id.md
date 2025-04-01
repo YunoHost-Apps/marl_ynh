@@ -24,7 +24,7 @@ It runs by default in Local Mode, i.e. in-browser and does not store any user da
 However you can also set it in Server Mode via the app configuration options, in order to display permanently one or several Mastodon archives stored online.
 
 
-**Versi terkirim:** 2.6~ynh2
+**Versi terkirim:** 2.7~ynh1
 
 **Demo:** <https://s427.github.io/MARL>
 

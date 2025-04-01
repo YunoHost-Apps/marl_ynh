@@ -3,7 +3,7 @@ Este archivo README esta generado automaticamente<https://github.com/YunoHost/ap
 No se debe editar a mano.
 -->
 
-# MARL para Yunohost
+# MARL para YunoHost
 
 [![Nivel de integración](https://apps.yunohost.org/badge/integration/marl)](https://ci-apps.yunohost.org/ci/apps/marl/)
 ![Estado funcional](https://apps.yunohost.org/badge/state/marl)
@@ -24,7 +24,7 @@ It runs by default in Local Mode, i.e. in-browser and does not store any user da
 However you can also set it in Server Mode via the app configuration options, in order to display permanently one or several Mastodon archives stored online.
 
 
-**Versión actual:** 2.6~ynh2
+**Versión actual:** 2.7~ynh1
 
 **Demo:** <https://s427.github.io/MARL>
 
