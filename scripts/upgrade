@@ -19,7 +19,6 @@ temp_dir=$(mktemp -d)
 ynh_setup_source --dest_dir="$temp_dir"
 mv $temp_dir/dist/* $install_dir #keep only the content of `dist` folder
 ynh_safe_rm $temp_dir
-mv $install_dir/js/config.default.js $install_dir/js/config.js
 
 chown -R "$app:www-data" "$install_dir"
 
