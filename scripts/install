@@ -17,8 +17,6 @@ ynh_setup_source --dest_dir="$temp_dir"
 mv $temp_dir/dist/* $install_dir #keep only the content of `dist` folder
 ynh_safe_rm $temp_dir
 
-chown -R "$app:www-data" "$install_dir"
-
 #=================================================
 # SYSTEM CONFIGURATION
 #=================================================
