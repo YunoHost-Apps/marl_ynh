@@ -16,10 +16,10 @@ archives_paths=""
 ynh_app_setting_set --key=archives_paths --value=$archives_paths
 
 lang="en"
-ynh_app_setting_set --key=lang --value=$lang
+ynh_app_setting_set --key=lang --value="\"$lang\""
 
 theme="light"
-ynh_app_setting_set --key=theme --value=$theme
+ynh_app_setting_set --key=theme --value="\"$theme\""
 
 sort_asc=true
 ynh_app_setting_set --key=sort_asc --value=$sort_asc

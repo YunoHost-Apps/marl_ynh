@@ -65,7 +65,7 @@ ynh_app_config_apply_one() {
     else
         # Get back to default behavior
         _ynh_app_config_apply_one $target_key
-    done
+    fi
 }
 
 #=================================================
