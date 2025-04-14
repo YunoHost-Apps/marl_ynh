@@ -26,156 +26,47 @@ install_dir=$(ynh_app_setting_get --key=install_dir)
 # ADDITIONAL HELPERS
 #=================================================
 
-# Helper which returns the config currently stored in the config file 
-_marl_load_custom_prefs_array() {
-    if [ -f $install_dir/js/config.js ]; then
-        local json
-
-        # Extract current preferences from config file
-        json=$(sed -n '/const customPrefs = {/{:a;N;/};/!ba;s/const customPrefs = //;s/;//p}' $install_dir/js/config.js)
-        if [ -z "$json" ]; then
-            echo "Can't extract source preferences."
-            exit 1
-        fi
-
-        # Create bash associative array
-        declare -A custom_prefs
-        for key in $(echo "$json" | jq -r '. | keys[]'); do
-            value=$(echo "$json" | jq -r --arg key "$key" '.[$key]')
-            custom_prefs[$key]=$value
-        done
-        
-        # Output array
-        declare -p custom_prefs #output the definition of the array (yet to be created using 'eval')
-    else
-        echo "No config file found at `$install_dir/js/config.js`."
-        exit 1
-    fi
-}
-
-# Helper that return value for given MARL custom prefs key
-marl_get_custom_prefs() {
+# Custom setter for all MARL customPrefs 
+_marl_set_custom_pref() {
     local target_key="$1"
+    local new_value="${!target_key}"
     
-    # Instantiate array of currently saved preferences 
-    eval "$(_marl_load_custom_prefs_array)"
+    ynh_script_progression "Updating MARL server mode config file ..."
     
-    # return required value 
-    echo "${custom_prefs[$target_key]}"
-}
-
-# Helper that sets new value for given MARL custom prefs key
-marl_set_custom_prefs() {
-    local target_key="$1"
-    local new_value="$2" 
-
-    # Instantiate array of currently saved preferences 
-    eval "$(_marl_load_custom_prefs_array)"
-    
-    # Update value
-    $custom_prefs[$target_key]=$new_value
-
-    # Convert the bash array to a nicely formatted JSON object - snippet from https://stackoverflow.com/questions/44792241/constructing-a-json-object-from-a-bash-associative-array/44792595#44792595
-    data='{}'
-    for i in "${!custom_prefs[@]}"
-    do
-        data=$(jq -n --arg data "$data" \
-                     --arg key "$i"     \
-                     --arg value "${custom_prefs[$i]}" \
-                     '$data | fromjson + { ($key) : ($value) }')
-    done
-
-    # Escape output
-    data_escaped=$(echo "$data" | sed 's/[/&]/\\&/g')              #special characters (/&), can't make it work for '\'
-    data_escaped="const customPrefs = ${data_escaped//$'\n'/\\n};" #newlines
-
-    #Overwrite customPrefs object with updated one
-    sed "/const customPrefs = {/{:a;N;/};/!ba;s/.*/$data_escaped/g}" $install_dir/js/config.js
+    ynh_replace --match="^\s{2}\"$target_key.*" --replace="  \"$target_key\": $new_value" --file="$install_dir/js/config.js"
+    ynh_app_setting_set --key="$tarket_key" --value="$new_value"
 }
 
 #=================================================
 # SPECIFIC GETTERS FOR TOML SHORT KEY
 #=================================================
 
-get__archives_paths() {
-    if [ -f $install_dir/js/config.js ]; then
-        local servers
-        # Get servers list stored in $install_dir/js/config.js
-        servers=($(sed -n '/^const servers/{:start /\];/!{N;b start};/^const servers = \[.*\];/p}' $install_dir/js/config.js | grep -oE '"[^"]+"' | sed 's/"//g')) # array
-        if [ "${#servers[@]}" > 0 ]; then
-            servers_str="$(printf "%s\\\n\\\n" "${servers[@]}")" # e.g. "line1\n\nline2\n\nline3\n\n"; it needs double newlines for proper display in the end
-            servers_str="${servers_str%\\n\\n}" # remove trailing group of 2 newlines if it exists
-            echo "$servers_str"
-        else
-            echo ""
-        fi
-    else
-        echo ""
-    fi
-}
-
 #=================================================
 # SPECIFIC SETTERS FOR TOML SHORT KEYS
 #=================================================
 
 set__archives_paths() {
-    # We do not use ynh_app_setting_set (nor ynh_add_config) because config.js is not created
-    # by default at install (cf. https://github.com/s427/MARL/blob/main/dist/js/config.default.js)
-    # and thus should not risk being overwritten during next execution of upgrade script.
-    if [ -n "$archives_paths" ]; then
-        ynh_script_progression "Creating or updating MARL server mode config file ..."
-        
-        # Create and populate servers' array
-        echo "const servers = [" > $install_dir/js/config.js # overwrite file if it already exists
-        while IFS= read -r server_path; do
-            echo "  \"$(echo $server_path | tr -d ' ')\"," >> $install_dir/js/config.js
-        done <<< "$archives_paths"
-        echo "];" >> $install_dir/js/config.js
-        
-        # Add default preferences to config file
-        echo '
-        
-        const customPrefs = {
-          "lang": "en",
-          "theme": "light",
-          "sortAsc": true,
-          "pageSize": 10,
-          "combinePanels": false,
-          "defaultPanel": null,
-          "simplifyPostsDisplay": false
-        };
-        ' >> $install_dir/js/config.js
+    ynh_script_progression "Updating MARL server mode config file ..."
     
-    else
-        ynh_script_progression "Removing MARL server mode config file ..."
-        rm $install_dir/js/config.js
-    fi
+    ynh_replace --match="^const servers.*" --replace="const servers = [$archive_paths];" --file="$install_dir/js/config.js"
 }
 
 #=================================================
 # OVERWRITE EXISTING HELPERS
 #=================================================
 
-_ynh_app_config_get() {
-    for line in $YNH_APP_CONFIG_PANEL_OPTIONS_TYPES_AND_BINDS; do
-        # Split line into short_setting, type and bind
-        IFS='|' read -r short_setting type bind <<< "$line"
-        binds[${short_setting}]="$bind"
-        types[${short_setting}]="$type"
-        file_hash[${short_setting}]=""
-        formats[${short_setting}]=""
-        # Tweak of original helper - Define the list of custom prefs that should go through a specific helper
-        marl_custom_prefs=(lang theme sortAsc pageSize combinePanels defaultPanel simplifyPostsDisplay) 
-        # Tweak of original helper - Check if current setting is one of the custom prefs 
-        if [[ " ${marl_custom_prefs[*]} " =~ [[:space:]]${short_setting}[[:space:]] ]]; then #inspired from https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value/15394738#15394738
-            marl_get_custom_prefs "$short_setting"
-        else 
-            ynh_app_config_get_one "$short_setting" "$type" "$bind"
-        fi 
+ynh_app_config_apply_one() {
+    local target_key="$1"
+    
+    marl_custom_prefs=(lang theme sortAsc pageSize combinePanels defaultPanel simplifyPostsDisplay) 
+    if [[ " ${marl_custom_prefs[*]} " =~ [[:space:]]${target_key}[[:space:]] ]]; then #inspired from https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value/15394738#15394738
+        # Use custom setter 
+        _marl_set_custom_pref $target_key
+    else
+        # Get back to default behavior
+        _ynh_app_config_apply_one $target_key
     done
 }
-
-#TODO what to do with the setter ? - https://github.com/lx78WyY0J5/yunohost/blob/9982a775820798aaf2d7920205e3c9c7495f2e58/helpers/helpers.v2.1.d/config#L63
 
 #=================================================
 ynh_app_config_run "$1"
