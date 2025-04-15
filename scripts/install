@@ -67,7 +67,7 @@ ynh_config_add_nginx
 
 if ynh_in_ci_tests;
 then
-    # create config file for CI so that it doesn't fail
+    # Create config file for CI so that it doesn't fail
     echo "const servers = [];" > $install_dir/js/config.js
 fi
 

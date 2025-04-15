@@ -28,27 +28,51 @@ install_dir=$(ynh_app_setting_get --key=install_dir)
 
 # Custom setter for all MARL customPrefs 
 _marl_set_custom_pref() {
-    local target_key="$1"
-    local new_value="${!target_key}"
+    local setting_id="$1"
+    local new_value="${!setting_id}"
+    local type="${types[$setting_id]}"
+
+    # Format value output for the app config file
+    if [[ -z "$new_value" ]]; then
+        # empty var with quotes
+        new_val_for_config_file="\"\""
+
+    elif [ $setting_id = "lang" ] || [ $setting_id = "theme" ] || [ $setting_id = "defaultPanel" ]; then
+        # string with quotes
+        new_val_for_config_file="\"$new_value\""
+
+    elif [ $type = "select" ] && [ $new_value = "auto" ]; then
+        # choice `auto` corresponds to an empty var in the app config file  
+        new_val_for_config_file=""
+        
+    else
+        # boolean or number (no quotes)
+        new_val_for_config_file=$new_value
+    fi
     
-    ynh_script_progression "Updating MARL server mode config file ..."
-    
-    ynh_replace --match="^\s{2}\"$target_key.*" --replace="  \"$target_key\": $new_value" --file="$install_dir/js/config.js"
-    ynh_app_setting_set --key="$tarket_key" --value="$new_value"
+    ynh_replace --match="^\s\s\"$setting_id.*" --replace="  \"$setting_id\": $new_val_for_config_file," --file="$install_dir/js/config.js"
+    ynh_app_setting_set --key="$setting_id" --value="$new_value"
 }
 
 #=================================================
 # SPECIFIC GETTERS FOR TOML SHORT KEY
 #=================================================
 
+get__archives_paths() {
+    echo -e ${archives_paths//,/\\n\\n} #double newline required for proper display in config panel's text input box 
+}
+
 #=================================================
 # SPECIFIC SETTERS FOR TOML SHORT KEYS
 #=================================================
 
 set__archives_paths() {
-    ynh_script_progression "Updating MARL server mode config file ..."
+    # Convert multiline string into one comma-separated line
+    comma_separated_archives_paths="${archives_paths//[[:space:]]/,}"
+    comma_separated_archives_paths_quoted="\"${archives_paths//[[:space:]]/\",\"}\""
     
-    ynh_replace --match="^const servers.*" --replace="const servers = [$archive_paths];" --file="$install_dir/js/config.js"
+    ynh_replace --match="^const servers.*" --replace="const servers = [$comma_separated_archives_paths_quoted];" --file="$install_dir/js/config.js"
+    ynh_app_setting_set --key="archives_paths" --value="$comma_separated_archives_paths"
 }
 
 #=================================================
@@ -56,15 +80,15 @@ set__archives_paths() {
 #=================================================
 
 ynh_app_config_apply_one() {
-    local target_key="$1"
+    local setting_id="$1"
     
     marl_custom_prefs=(lang theme sortAsc pageSize combinePanels defaultPanel simplifyPostsDisplay) 
-    if [[ " ${marl_custom_prefs[*]} " =~ [[:space:]]${target_key}[[:space:]] ]]; then #inspired from https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value/15394738#15394738
+    if [[ " ${marl_custom_prefs[*]} " =~ [[:space:]]${setting_id}[[:space:]] ]]; then #inspired from https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value/15394738#15394738
         # Use custom setter 
-        _marl_set_custom_pref $target_key
+        _marl_set_custom_pref "$setting_id"
     else
         # Get back to default behavior
-        _ynh_app_config_apply_one $target_key
+        _ynh_app_config_apply_one "$setting_id"
     fi
 }
 

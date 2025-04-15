@@ -5,12 +5,12 @@ version = "1.0"
 [main]
 name.en = "Main configuration"
 name.fr = "Configuration principale"
-help.en = "MARL runs in local mode by default, i.e. it processes all data within the user's browser and nothing is sent to the server.\nBy adding archives paths below, you can change this MARL instance to Server Mode in which users with permission to access this instance will be able to browse archive stored on the server(s) that you would have pointed to.\nMastodon archive file should be unpacked on your server (it can be sent to `/home/yunohost.app/marl` on this server via SFTP if you want it to be backed up together with the app), and you might want to purge the archive from private messages (you can use the tool [outbox cleanup (GitHub link)](https://github.com/s427/MARL/blob/main/tools/outbox-cleanup/readme.md) for that purpose)." 
-help.fr = "MARL fonctionne avec le mode Local par défault, c'est-à-dire que toutes les données sont traitées dans le navigateur de l'utilisateur et que rien n'est envoyé au serveur.\nEn indiquant un ou plusieurs chemins vers des dossiers d'archives Mastodon ci-dessous, vous pouvez passer cette instance de MARL en mode Serveur, qui permet aux utilisateurs autorisés à accéder à cette instance de parcourir les archives stockées sur le(s) serveur(s) indiqués.\nChaque archive Mastodon doit être extraite dans un dossier sur le serveur choisi (cela peut par exemple être sur ce serveur à l'emplacement `/home/yunohost.app/marl` avec un envoi en SFTP, si vous souhaitez que l'archive soit inclue dans chaque sauvegarde de l'application), et vous pourriez vouloir purger l'archive des messages privés qu'elle contient (pour ce faire il existe l'outil [outbox cleanup (lien GitHub)](https://github.com/s427/MARL/blob/main/tools/outbox-cleanup/readme.md))." 
-   
+
     [main.server_mode]
     name.en = "Server mode"
     name.fr = "Mode serveur"
+    help.en = "Enable, disable and configure the Server mode"
+	help.fr = "Activer, désactiver et configurer le mode Serveur"
     optional = true
  
         [main.server_mode.archives_paths]
@@ -18,26 +18,26 @@ help.fr = "MARL fonctionne avec le mode Local par défault, c'est-à-dire que to
         ask.fr = "Archive(s) Mastodon à afficher"
         type = "text"
         help.en = "List one path to uncompressed Mastodon archive directory per line.\nPath can also point to external servers provided CORS headers are enabled.\nTo switch back from Server Mode to Local mode, simply remove all URI and save."
-        help.fr = "Indiquez un chemin vers un dossier contenant une archive décompressée de Mastodon par ligne.\nLes chemins peuvent pointer vers des serveurs externes pourvu que les en-têtes CORS soient activées.\nPour repasser du mode Serveur au mode Local, il vous suffit de supprimer toutes les URI et de sauvagarder."
+        help.fr = "Indiquez un chemin vers un dossier contenant une archive décompressée de Mastodon par ligne.\nLes chemins peuvent pointer vers des serveurs externes pourvu que les en-têtes CORS soient activées.\nPour repasser du mode Serveur au mode Local, il vous suffit de supprimer toutes les URI et de sauvegarder."
 
         [main.server_mode.lang]
         ask.en = "UI Language"
         ask.fr = "Langue de l'interface utilisateur"
         type = "select"
-        choices = ["en", "fr"]
+        choices = ["en", "fr", "auto"]
         default = "en"
-        help.en = "If none is set, the app will attempt to use the same language as the user's browser (if available for the app)."
-        help.fr = "Si aucune langue n'est définie, l'application utilisera la préférence utilisateur définie par le navigateur (pourvu que cette traduction soit disponible)."
+        help.en = "If set to `auto`, the app will attempt to use the same language as the user's browser (if available for the app)."
+        help.fr = "En sélectionnant `auto`, l'application utilisera la préférence utilisateur définie par le navigateur (pourvu que cette traduction soit disponible)."
         visible = "archives_paths"
         
         [main.server_mode.theme]
         ask.en = "Theme"
         ask.fr = "Thème"
         type = "select"
-        choices = ["light", "dark"]
+        choices = ["light", "dark", "auto"]
         default = "light"
-        help.en = "If none is set, the app will follow the user preference (set in their browser or OS)."
-        help.fr = "Si aucun thème n'est défini, l'application utilisera la préférence utilisateur définie par le navigateur ou le système d'exploitation"
+        help.en = "If set to `auto`, the app will follow the user preference (set in their browser or OS)."
+        help.fr = "En sélectionnant `auto`, l'application utilisera la préférence utilisateur définie par le navigateur ou le système d'exploitation"
         visible = "archives_paths"
         
         [main.server_mode.sortAsc]
@@ -74,11 +74,11 @@ help.fr = "MARL fonctionne avec le mode Local par défault, c'est-à-dire que to
         ask.en = "Sidebar default panel"
         ask.fr = "Panneau de barre latérale par défault"
         type = "select"
-        choices = ["actor", "filters", "tags", "tools"]
+        choices = ["actor", "filters", "tags", "tools", "empty"]
         default = "actor"
-        help.en = "If none is set, no panel will be initially displayed."
-        help.fr = "Si aucun panneau n'est défini ici, il n'en sera affiché aucun par défaut"
-        visible = "archives_paths && combinePanels == 'true'"  
+        help.en = "If 'empty' option is set, no panel will be initially displayed."
+        help.fr = "Si l'option 'empty' est sélectionnée, aucune panneau ne sera affiché par défaut"
+        visible = "archives_paths && combinePanels == true"  
         
         [main.server_mode.simplifyPostsDisplay]
         ask.en = "Hide some technical or redundant elements in posts display"
