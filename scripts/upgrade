@@ -8,6 +8,21 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression "Ensuring downward compatibility..."
+
+# Since v2.8~ynh1
+ynh_app_setting_set_default --key=archives_paths --value=""
+ynh_app_setting_set_default --key=lang --value="en"
+ynh_app_setting_set_default --key=theme --value="light"
+ynh_app_setting_set_default --key=sort_asc --value=true
+ynh_app_setting_set_default --key=page_size --value=10
+ynh_app_setting_set_default --key=combine_panels --value=false
+ynh_app_setting_set_default --key=default_panels --value=null
+ynh_app_setting_set_default --key=simplify_post_display --value=false
+
+#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
