@@ -33,18 +33,13 @@ _marl_set_custom_pref() {
     local type="${types[$setting_id]}"
 
     # Format value output for the app config file
-    if [[ -z "$new_value" ]]; then
-        # empty var with quotes
+    if [[ -z "$new_value" ]] || ( [ $type = "select" ] && ( [ $new_value = "auto" ] || [ $new_value = "empty" ] ) ); then
+        # add quotes to empty var OR make select choices `auto`/`empty` corresponds to an empty var in the app config file
         new_val_for_config_file="\"\""
 
     elif [ $setting_id = "lang" ] || [ $setting_id = "theme" ] || [ $setting_id = "defaultPanel" ]; then
         # string with quotes
         new_val_for_config_file="\"$new_value\""
-
-    elif [ $type = "select" ] && [ $new_value = "auto" ]; then
-        # choice `auto` corresponds to an empty var in the app config file  
-        new_val_for_config_file=""
-        
     else
         # boolean or number (no quotes)
         new_val_for_config_file=$new_value
