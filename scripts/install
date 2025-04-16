@@ -65,12 +65,6 @@ ynh_script_progression "Adding system configurations related to $app..."
 # Create a dedicated NGINX config using the conf/nginx.conf template
 ynh_config_add_nginx
 
-if ynh_in_ci_tests;
-then
-    # Create config file for CI so that it doesn't fail
-    echo "const servers = [];" > $install_dir/js/config.js
-fi
-
 #=================================================
 # END OF SCRIPT
 #=================================================
