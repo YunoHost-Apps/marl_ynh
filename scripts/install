@@ -8,6 +8,35 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
+# INITIALIZE AND STORE SETTINGS
+#=================================================
+
+# Below settings are used as template tags in 'config.js' config file
+archives_paths=""
+ynh_app_setting_set --key=archives_paths --value=$archives_paths
+
+lang="en"
+ynh_app_setting_set --key=lang --value="\"$lang\""
+
+theme="light"
+ynh_app_setting_set --key=theme --value="\"$theme\""
+
+sort_asc=true
+ynh_app_setting_set --key=sort_asc --value=$sort_asc
+
+page_size=10
+ynh_app_setting_set --key=page_size --value=$page_size
+
+combine_panels=false
+ynh_app_setting_set --key=combine_panels --value=$combine_panels
+
+default_panels=null
+ynh_app_setting_set --key=default_panels --value=$default_panels
+
+simplify_post_display=false
+ynh_app_setting_set --key=simplify_post_display --value=$simplify_post_display
+
+#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Setting up source files..."
@@ -16,6 +45,17 @@ temp_dir=$(mktemp -d)
 ynh_setup_source --dest_dir="$temp_dir"
 mv $temp_dir/dist/* $install_dir #keep only the content of `dist` folder
 ynh_safe_rm $temp_dir
+
+#=================================================
+# APP INITIAL CONFIGURATION
+#=================================================
+ynh_script_progression "Adding $app's configuration files..."
+
+ynh_config_add --template="config.js" --destination="$install_dir/js/config.js"
+
+# FIXME: this should be handled by the core in the future
+chmod 664 "$install_dir/js/config.js"
+chown "$app:$app" "$install_dir/js/config.js"
 
 #=================================================
 # SYSTEM CONFIGURATION
@@ -27,7 +67,7 @@ ynh_config_add_nginx
 
 if ynh_in_ci_tests;
 then
-    # create config file for CI so that it doesn't fail
+    # Create config file for CI so that it doesn't fail
     echo "const servers = [];" > $install_dir/js/config.js
 fi
 
