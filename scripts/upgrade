@@ -36,17 +36,22 @@ mv $temp_dir/dist/* $install_dir #keep only the content of `dist` folder
 ynh_safe_rm $temp_dir
 
 #=================================================
+# UPDATE A CONFIG FILE
+#=================================================
+ynh_script_progression "Adding $app's configuration files..."
+
+ynh_config_add --template="config.js" --destination="$install_dir/js/config.js"
+
+# FIXME: this should be handled by the core in the future
+chmod 640 "$install_dir/js/config.js"
+chown "$app:www-data" "$install_dir/js/config.js"
+
+#=================================================
 # REAPPLY SYSTEM CONFIGURATION
 #=================================================
 ynh_script_progression "Upgrading system configurations related to $app..."
 
 ynh_config_add_nginx
-
-if ynh_in_ci_tests;
-then
-    # create config file for CI so that it doesn't fail
-    echo "const servers = [];" > $install_dir/js/config.js
-fi
 
 #=================================================
 # END OF SCRIPT
