@@ -54,7 +54,10 @@ _marl_set_custom_pref() {
 #=================================================
 
 get__archives_paths() {
-    echo -e ${archives_paths//,/\\n\\n} #double newline required for proper display in config panel's text input box 
+    local archives_urls="$(grep -E '^const servers\s=\s\[' $install_dir/js/config.js | cut -d= -f2 | sed 's/ //g')" #output example:`["server1","server2","server3"]` 
+    archives_urls="${archives_urls//[\[\]\";]/}" #output example: `server1,server2,server3`
+
+    echo -e "${archives_urls//,/\\n\\n}" #double newline required for proper display in config panel's text input box 
 }
 
 #=================================================
