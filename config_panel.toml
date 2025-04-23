@@ -79,6 +79,15 @@ name.fr = "Configuration principale"
         help.en = "If 'empty' option is set, no panel will be initially displayed."
         help.fr = "Si l'option 'empty' est sélectionnée, aucune panneau ne sera affiché par défaut"
         visible = "archives_paths && combinePanels == true"  
+
+        [main.server_mode.showActorJson]
+        ask.en = "Display the full JSON data in the actor panel"
+        ask.fr = "Afficher les données JSON complètes dans la panneau 'acteurs'"
+        type = "boolean"
+        yes = "true"
+        no = "false"
+        default = "false"
+        visible = "archives_paths && combinePanels == true && defaultPanel == 'actor'"
         
         [main.server_mode.simplifyPostsDisplay]
         ask.en = "Hide some technical or redundant elements in posts display"
@@ -88,15 +97,6 @@ name.fr = "Configuration principale"
         no = "false"
         default = "false"
         visible = "archives_paths"
-
-        [main.server_mode.showActorJson]
-        ask.en = "Display the full JSON data in the actor panel"
-        ask.fr = "Afficher les données JSON complètes dans la panneau 'acteurs'"
-        type = "boolean"
-        yes = "true"
-        no = "false"
-        default = "false"
-        visible = "archives_paths && defaultPanel == actor"
 
         [main.server_mode.showPostsJson]
         ask.en = "Display the full JSON data related to each post"
