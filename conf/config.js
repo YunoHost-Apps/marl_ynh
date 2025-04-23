@@ -14,4 +14,6 @@ const customPrefs = {
   "combinePanels": __COMBINE_PANELS__,
   "defaultPanel": __DEFAULT_PANELS__,
   "simplifyPostsDisplay": __SIMPLIFY_POST_DISPLAY__
+  "showActorJson": false
+  "showPostsJson": false
 };

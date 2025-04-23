@@ -88,3 +88,21 @@ name.fr = "Configuration principale"
         no = "false"
         default = "false"
         visible = "archives_paths"
+
+        [main.server_mode.showActorJson]
+        ask.en = "Display the full JSON data in the actor panel"
+        ask.fr = "Afficher les données JSON complètes dans la panneau 'acteurs'"
+        type = "boolean"
+        yes = "true"
+        no = "false"
+        default = "false"
+        visible = "archives_paths && defaultPanel == actor"
+
+        [main.server_mode.showPostsJson]
+        ask.en = "Display the full JSON data related to each post"
+        ask.fr = "Afficher les données JSON complètes liées à chaque post"
+        type = "boolean"
+        yes = "true"
+        no = "false"
+        default = "false"
+        visible = "archives_paths && simplifyPostsDisplay == false"

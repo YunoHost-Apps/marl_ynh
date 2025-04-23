@@ -21,6 +21,9 @@ ynh_app_setting_set_default --key=page_size --value=10
 ynh_app_setting_set_default --key=combine_panels --value=false
 ynh_app_setting_set_default --key=default_panels --value=null
 ynh_app_setting_set_default --key=simplify_post_display --value=false
+# Since v2.9~ynh1 
+ynh_app_setting_set_default --key=show_actor_json --value=false
+ynh_app_setting_set_default --key=show_posts_json --value=false
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE

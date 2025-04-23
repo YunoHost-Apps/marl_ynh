@@ -36,6 +36,12 @@ ynh_app_setting_set --key=default_panels --value=$default_panels
 simplify_post_display=false
 ynh_app_setting_set --key=simplify_post_display --value=$simplify_post_display
 
+show_actor_json=false
+ynh_app_setting_set --key=show_actor_json --value=$show_actor_json
+
+show_posts_json=false
+ynh_app_setting_set --key=show_posts_json --value=$show_posts_json
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
