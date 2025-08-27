@@ -86,7 +86,7 @@ name.fr = "Configuration principale"
 
         [main.server_mode.hideNoAltTextNotice]
         ask.en = "Hide the warning icon when an image has no alt text"
-        ask.fr = "Cacher l'icone d'avertissement quand une image n'a pas de champ 'alt'"
+        ask.fr = "Cacher l'icone d'avertissement quand une image n'a pas de champ `alt`"
         type = "boolean"
         yes = "true"
         no = "false"
@@ -111,8 +111,8 @@ name.fr = "Configuration principale"
         ask.en = "Mastodon archive(s) to display"
         ask.fr = "Archive(s) Mastodon à afficher"
         type = "text"
-        help.en = "Allows you to change the title for the app (<title>, shown on the browser tab). The text " — MARL" will still be added at the end."
-        help.fr = "Permet de changer le titre de l'app (balise <title> du navigateur). Le texte the text " — MARL" sera néanmoins toujours ajouté à la fin."
+        help.en = "Allows you to change the title for the app (<title>, shown on the browser tab). The text ` — MARL` will still be added at the end."
+        help.fr = "Permet de changer le titre de l'app (balise <title> du navigateur). Le texte the text ` — MARL` sera néanmoins toujours ajouté à la fin."
 
         [main.server_mode.showActorJson]
         ask.en = "Display the full JSON data in the actor panel"
