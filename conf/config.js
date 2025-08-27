@@ -16,4 +16,7 @@ const customPrefs = {
   "simplifyPostsDisplay": __SIMPLIFY_POST_DISPLAY__
   "showActorJson": __SHOW_ACTOR_JSON__
   "showPostsJson": __SHOW_POSTS_JSON__
+  "imagesCompactLayout": _IMAGES_COMPACT_LAYOUT_
+  "hideNoAltTextNotice": _HIDE_NO_ALT_TEXT_NOTICE_
+  "appTitle": _APP_TITLE_
 };
