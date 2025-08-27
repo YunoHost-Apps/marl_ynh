@@ -107,11 +107,11 @@ name.fr = "Configuration principale"
         help.fr = "Indiquez un chemin vers un dossier contenant une archive décompressée de Mastodon par ligne.\nLes chemins peuvent pointer vers des serveurs externes pourvu que les en-têtes CORS soient activées.\nPour repasser du mode Serveur au mode Local, il vous suffit de supprimer toutes les URI et de sauvegarder."
 
         [main.server_mode.appTitle]
-        ask.en = "Mastodon archive(s) to display"
-        ask.fr = "Archive(s) Mastodon à afficher"
+        ask.en = "Custom app title"
+        ask.fr = "Titre d'application personnalisé"
         type = "text"
-        help.en = "Allows you to change the title for the app (<title>, shown on the browser tab). The text ` — MARL` will still be added at the end."
-        help.fr = "Permet de changer le titre de l'app (balise <title> du navigateur). Le texte the text ` — MARL` sera néanmoins toujours ajouté à la fin."
+        help.en = "Allows you to change the title for the app (`<title>`, shown on the browser tab). The text ` — MARL` will still be added at the end."
+        help.fr = "Permet de changer le titre de l'app (balise `<title>` du navigateur). Le texte the text ` — MARL` sera néanmoins toujours ajouté à la fin."
 
         [main.server_mode.showActorJson]
         ask.en = "Display the full JSON data in the actor panel"
@@ -120,7 +120,7 @@ name.fr = "Configuration principale"
         yes = "true"
         no = "false"
         default = "false"
-        visible = "archives_paths && default_config.combinePanels == true && defaultPanel == 'actor'"
+        visible = "archives_paths && main.default_config.combinePanels == true && main.default_config.defaultPanel == 'actor'"
 
         [main.server_mode.showPostsJson]
         ask.en = "Display the full JSON data related to each post"
@@ -129,4 +129,4 @@ name.fr = "Configuration principale"
         yes = "true"
         no = "false"
         default = "false"
-        visible = "archives_paths && default_config.simplifyPostsDisplay == false"
+        visible = "archives_paths && main.default_config.simplifyPostsDisplay == false"
