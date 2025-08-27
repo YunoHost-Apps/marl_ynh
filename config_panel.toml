@@ -13,7 +13,7 @@ name.fr = "Configuration principale"
 	help.fr = "Modifier la configuration par défaut (il sera toujours possible pour l'utilisateur de modifier ces paramètres depuis l'interface de l'application)."
     optional = false
 
-        [main.server_mode.lang]
+        [main.default_config.lang]
         ask.en = "UI Language"
         ask.fr = "Langue de l'interface utilisateur"
         type = "select"
@@ -22,7 +22,7 @@ name.fr = "Configuration principale"
         help.en = "If set to `auto`, the app will attempt to use the same language as the user's browser (if available for the app)."
         help.fr = "En sélectionnant `auto`, l'application utilisera la préférence utilisateur définie par le navigateur (pourvu que cette traduction soit disponible)."
         
-        [main.server_mode.theme]
+        [main.default_config.theme]
         ask.en = "Theme"
         ask.fr = "Thème"
         type = "select"
@@ -31,7 +31,7 @@ name.fr = "Configuration principale"
         help.en = "If set to `auto`, the app will follow the user preference (set in their browser or OS)."
         help.fr = "En sélectionnant `auto`, l'application utilisera la préférence utilisateur définie par le navigateur ou le système d'exploitation"
         
-        [main.server_mode.sortAsc]
+        [main.default_config.sortAsc]
         ask.en = "Sort posts chronologically"
         ask.fr = "Trier les posts chronologiquement"
         type = "boolean"
@@ -41,7 +41,7 @@ name.fr = "Configuration principale"
         help.en = "If activated, oldests posts will come first"
         help.fr = "Si activé, les posts les plus anciens viendront en premier"
         
-        [main.server_mode.pageSize]
+        [main.default_config.pageSize]
         ask.en = "Number of posts per page"
         ask.fr = "Nombre de posts par page"
         type = "number"
@@ -50,7 +50,7 @@ name.fr = "Configuration principale"
         help.en = "Large values may slow down the app significantly."
         help.fr = "Une grande valeur peut ralentir significativement l'application."
         
-        [main.server_mode.combinePanels]
+        [main.default_config.combinePanels]
         ask.en = "Combine the panels into one sidebar on large screens"
         ask.fr = "Combiner les panneaux en une barre latérale sur les grands écrans"
         type = "boolean"
@@ -58,7 +58,7 @@ name.fr = "Configuration principale"
         no = "false"
         default = "false"
 
-        [main.server_mode.defaultPanel]
+        [main.default_config.defaultPanel]
         ask.en = "Sidebar default panel"
         ask.fr = "Panneau de barre latérale par défault"
         type = "select"
@@ -68,7 +68,7 @@ name.fr = "Configuration principale"
         help.fr = "Si l'option 'empty' est sélectionnée, aucune panneau ne sera affiché par défaut"
         visible = "combinePanels == true"
 
-        [main.server_mode.simplifyPostsDisplay]
+        [main.default_config.simplifyPostsDisplay]
         ask.en = "Hide some technical or redundant elements in posts display"
         ask.fr = "Cacher éléments techniques ou redondants dans les posts"
         type = "boolean"
@@ -76,7 +76,7 @@ name.fr = "Configuration principale"
         no = "false"
         default = "false"
 
-        [main.server_mode.imagesCompactLayout]
+        [main.default_config.imagesCompactLayout]
         ask.en = "Use compact layout for images"
         ask.fr = "Utiliser une mise en page compacte pour les images"
         type = "boolean"
@@ -84,14 +84,13 @@ name.fr = "Configuration principale"
         no = "false"
         default = "false"
 
-        [main.server_mode.hideNoAltTextNotice]
+        [main.default_config.hideNoAltTextNotice]
         ask.en = "Hide the warning icon when an image has no alt text"
         ask.fr = "Cacher l'icone d'avertissement quand une image n'a pas de champ `alt`"
         type = "boolean"
         yes = "true"
         no = "false"
         default = "false"
-
 
     [main.server_mode]
     name.en = "Server mode"
@@ -121,7 +120,7 @@ name.fr = "Configuration principale"
         yes = "true"
         no = "false"
         default = "false"
-        visible = "archives_paths && combinePanels == true && defaultPanel == 'actor'"
+        visible = "archives_paths && default_config.combinePanels == true && defaultPanel == 'actor'"
 
         [main.server_mode.showPostsJson]
         ask.en = "Display the full JSON data related to each post"
@@ -130,4 +129,4 @@ name.fr = "Configuration principale"
         yes = "true"
         no = "false"
         default = "false"
-        visible = "archives_paths && simplifyPostsDisplay == false"
+        visible = "archives_paths && default_config.simplifyPostsDisplay == false"
