@@ -24,6 +24,10 @@ ynh_app_setting_set_default --key=simplify_post_display --value=false
 # Since v2.9~ynh1 
 ynh_app_setting_set_default --key=show_actor_json --value=false
 ynh_app_setting_set_default --key=show_posts_json --value=false
+# Since v2.12~ynh2
+ynh_app_setting_set_default --key=images_compact_layout --value=false
+ynh_app_setting_set_default --key=hide_no_alt_text_notice --value=false
+ynh_app_setting_set_default --key=app_title --value=""
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -47,7 +51,7 @@ ynh_config_add --template="config.js" --destination="$install_dir/js/config.js"
 
 # FIXME: this should be handled by the core in the future
 chmod 640 "$install_dir/js/config.js"
-chown "$app:www-data" "$install_dir/js/config.js"
+chown "$app:$app" "$install_dir/js/config.js"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATION

@@ -6,6 +6,93 @@ version = "1.0"
 name.en = "Main configuration"
 name.fr = "Configuration principale"
 
+    [main.default_config]
+    name.en = "Default Config"
+    name.fr = "Configuration par défaut"
+    help.en = "Edit default config (the user will still be able to tweak it from the app's interface)."
+	help.fr = "Modifier la configuration par défaut (il sera toujours possible pour l'utilisateur de modifier ces paramètres depuis l'interface de l'application)."
+    optional = false
+
+        [main.server_mode.lang]
+        ask.en = "UI Language"
+        ask.fr = "Langue de l'interface utilisateur"
+        type = "select"
+        choices = ["en", "fr", "auto"]
+        default = "en"
+        help.en = "If set to `auto`, the app will attempt to use the same language as the user's browser (if available for the app)."
+        help.fr = "En sélectionnant `auto`, l'application utilisera la préférence utilisateur définie par le navigateur (pourvu que cette traduction soit disponible)."
+        
+        [main.server_mode.theme]
+        ask.en = "Theme"
+        ask.fr = "Thème"
+        type = "select"
+        choices = ["light", "dark", "auto"]
+        default = "light"
+        help.en = "If set to `auto`, the app will follow the user preference (set in their browser or OS)."
+        help.fr = "En sélectionnant `auto`, l'application utilisera la préférence utilisateur définie par le navigateur ou le système d'exploitation"
+        
+        [main.server_mode.sortAsc]
+        ask.en = "Sort posts chronologically"
+        ask.fr = "Trier les posts chronologiquement"
+        type = "boolean"
+        yes = "true"
+        no = "false"
+        default = "true"
+        help.en = "If activated, oldests posts will come first"
+        help.fr = "Si activé, les posts les plus anciens viendront en premier"
+        
+        [main.server_mode.pageSize]
+        ask.en = "Number of posts per page"
+        ask.fr = "Nombre de posts par page"
+        type = "number"
+        min = 1
+        default = 10
+        help.en = "Large values may slow down the app significantly."
+        help.fr = "Une grande valeur peut ralentir significativement l'application."
+        
+        [main.server_mode.combinePanels]
+        ask.en = "Combine the panels into one sidebar on large screens"
+        ask.fr = "Combiner les panneaux en une barre latérale sur les grands écrans"
+        type = "boolean"
+        yes = "true"
+        no = "false"
+        default = "false"
+
+        [main.server_mode.defaultPanel]
+        ask.en = "Sidebar default panel"
+        ask.fr = "Panneau de barre latérale par défault"
+        type = "select"
+        choices = ["actor", "filters", "tags", "tools", "empty"]
+        default = "actor"
+        help.en = "If 'empty' option is set, no panel will be initially displayed."
+        help.fr = "Si l'option 'empty' est sélectionnée, aucune panneau ne sera affiché par défaut"
+        visible = "combinePanels == true"
+
+        [main.server_mode.simplifyPostsDisplay]
+        ask.en = "Hide some technical or redundant elements in posts display"
+        ask.fr = "Cacher éléments techniques ou redondants dans les posts"
+        type = "boolean"
+        yes = "true"
+        no = "false"
+        default = "false"
+
+        [main.server_mode.imagesCompactLayout]
+        ask.en = "Use compact layout for images"
+        ask.fr = "Utiliser une mise en page compacte pour les images"
+        type = "boolean"
+        yes = "true"
+        no = "false"
+        default = "false"
+
+        [main.server_mode.hideNoAltTextNotice]
+        ask.en = "Hide the warning icon when an image has no alt text"
+        ask.fr = "Cacher l'icone d'avertissement quand une image n'a pas de champ 'alt'"
+        type = "boolean"
+        yes = "true"
+        no = "false"
+        default = "false"
+
+
     [main.server_mode]
     name.en = "Server mode"
     name.fr = "Mode serveur"
@@ -20,65 +107,12 @@ name.fr = "Configuration principale"
         help.en = "List one path to uncompressed Mastodon archive directory per line.\nPath can also point to external servers provided CORS headers are enabled.\nTo switch back from Server Mode to Local mode, simply remove all URI and save."
         help.fr = "Indiquez un chemin vers un dossier contenant une archive décompressée de Mastodon par ligne.\nLes chemins peuvent pointer vers des serveurs externes pourvu que les en-têtes CORS soient activées.\nPour repasser du mode Serveur au mode Local, il vous suffit de supprimer toutes les URI et de sauvegarder."
 
-        [main.server_mode.lang]
-        ask.en = "UI Language"
-        ask.fr = "Langue de l'interface utilisateur"
-        type = "select"
-        choices = ["en", "fr", "auto"]
-        default = "en"
-        help.en = "If set to `auto`, the app will attempt to use the same language as the user's browser (if available for the app)."
-        help.fr = "En sélectionnant `auto`, l'application utilisera la préférence utilisateur définie par le navigateur (pourvu que cette traduction soit disponible)."
-        visible = "archives_paths"
-        
-        [main.server_mode.theme]
-        ask.en = "Theme"
-        ask.fr = "Thème"
-        type = "select"
-        choices = ["light", "dark", "auto"]
-        default = "light"
-        help.en = "If set to `auto`, the app will follow the user preference (set in their browser or OS)."
-        help.fr = "En sélectionnant `auto`, l'application utilisera la préférence utilisateur définie par le navigateur ou le système d'exploitation"
-        visible = "archives_paths"
-        
-        [main.server_mode.sortAsc]
-        ask.en = "Sort posts chronologically"
-        ask.fr = "Trier les posts chronologiquement"
-        type = "boolean"
-        yes = "true"
-        no = "false"
-        default = "true"
-        help.en = "If activated, oldests posts will come first"
-        help.fr = "Si activé, les posts les plus anciens viendront en premier"
-        visible = "archives_paths"
-        
-        [main.server_mode.pageSize]
-        ask.en = "Number of posts per page"
-        ask.fr = "Nombre de posts par page"
-        type = "number"
-        min = 1
-        default = 10
-        help.en = "Large values may slow down the app significantly."
-        help.fr = "Une grande valeur peut ralentir significativement l'application."
-        visible = "archives_paths"
-        
-        [main.server_mode.combinePanels]
-        ask.en = "Combine the panels into one sidebar on large screens"
-        ask.fr = "Combiner les panneaux en une barre latérale sur les grands écrans"
-        type = "boolean"
-        yes = "true"
-        no = "false"
-        default = "false"
-        visible = "archives_paths"
-
-        [main.server_mode.defaultPanel]
-        ask.en = "Sidebar default panel"
-        ask.fr = "Panneau de barre latérale par défault"
-        type = "select"
-        choices = ["actor", "filters", "tags", "tools", "empty"]
-        default = "actor"
-        help.en = "If 'empty' option is set, no panel will be initially displayed."
-        help.fr = "Si l'option 'empty' est sélectionnée, aucune panneau ne sera affiché par défaut"
-        visible = "archives_paths && combinePanels == true"  
+        [main.server_mode.appTitle]
+        ask.en = "Mastodon archive(s) to display"
+        ask.fr = "Archive(s) Mastodon à afficher"
+        type = "text"
+        help.en = "Allows you to change the title for the app (<title>, shown on the browser tab). The text " — MARL" will still be added at the end."
+        help.fr = "Permet de changer le titre de l'app (balise <title> du navigateur). Le texte the text " — MARL" sera néanmoins toujours ajouté à la fin."
 
         [main.server_mode.showActorJson]
         ask.en = "Display the full JSON data in the actor panel"
@@ -88,15 +122,6 @@ name.fr = "Configuration principale"
         no = "false"
         default = "false"
         visible = "archives_paths && combinePanels == true && defaultPanel == 'actor'"
-        
-        [main.server_mode.simplifyPostsDisplay]
-        ask.en = "Hide some technical or redundant elements in posts display"
-        ask.fr = "Cacher éléments techniques ou redondants dans les posts"
-        type = "boolean"
-        yes = "true"
-        no = "false"
-        default = "false"
-        visible = "archives_paths"
 
         [main.server_mode.showPostsJson]
         ask.en = "Display the full JSON data related to each post"
