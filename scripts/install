@@ -33,14 +33,23 @@ ynh_app_setting_set --key=combine_panels --value=$combine_panels
 default_panels=null
 ynh_app_setting_set --key=default_panels --value=$default_panels
 
-show_actor_json=false
-ynh_app_setting_set --key=show_actor_json --value=$show_actor_json
-
 simplify_post_display=false
 ynh_app_setting_set --key=simplify_post_display --value=$simplify_post_display
 
+images_compact_layout=false
+ynh_app_setting_set --key=images_compact_layout --value=$images_compact_layout
+
+hide_no_alt_text_notice=false
+ynh_app_setting_set --key=hide_no_alt_text_notice --value=$hide_no_alt_text_notice
+
+show_actor_json=false
+ynh_app_setting_set --key=show_actor_json --value=$show_actor_json
+
 show_posts_json=false
 ynh_app_setting_set --key=show_posts_json --value=$show_posts_json
+
+app_title=""
+ynh_app_setting_set --key=app_title --value=$app_title
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -61,7 +70,7 @@ ynh_config_add --template="config.js" --destination="$install_dir/js/config.js"
 
 # FIXME: this should be handled by the core in the future
 chmod 640 "$install_dir/js/config.js"
-chown "$app:www-data" "$install_dir/js/config.js"
+chown "$app:$app" "$install_dir/js/config.js"
 
 #=================================================
 # SYSTEM CONFIGURATION
