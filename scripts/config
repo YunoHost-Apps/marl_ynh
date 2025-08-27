@@ -80,7 +80,7 @@ set__archives_paths() {
 ynh_app_config_apply_one() {
     local setting_id="$1"
     
-    marl_custom_prefs=(lang theme sortAsc pageSize combinePanels defaultPanel showActorJson simplifyPostsDisplay showPostsJson) 
+    marl_custom_prefs=(lang theme sortAsc pageSize combinePanels defaultPanel showActorJson simplifyPostsDisplay showPostsJson appTitle)
     if [[ " ${marl_custom_prefs[*]} " =~ [[:space:]]${setting_id}[[:space:]] ]]; then #inspired from https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value/15394738#15394738
         # Use custom setter 
         _marl_set_custom_pref "$setting_id"
