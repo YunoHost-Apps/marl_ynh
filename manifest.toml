@@ -7,7 +7,7 @@ name = "MARL"
 description.en = "Single-page app to explore the contents of your Mastodon archive file"
 description.fr = "Application pour explorer le contenu de votre fichier d'archive Mastodon"
 
-version = "2.12~ynh1"
+version = "2.13~ynh1"
 
 maintainers = ["oleole39"]
 
@@ -47,8 +47,8 @@ ram.runtime = "0M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/s427/MARL/archive/refs/tags/v2.12.tar.gz"
-    sha256 = "c121385d285b729769497eb11a0d23e1be9cfafd5ffda70bc5bae4c955460237"
+    url = "https://github.com/s427/MARL/archive/refs/tags/v2.13.tar.gz"
+    sha256 = "2fd676dba2825cbf0daa12dda1ac8ef036113d088be06c57ab58d3cc4a422223"
     format = "tar.gz"
     extract = true
     in_subdir = true
