@@ -13,10 +13,11 @@ const customPrefs = {
   "pageSize": __PAGE_SIZE__,
   "combinePanels": __COMBINE_PANELS__,
   "defaultPanel": __DEFAULT_PANELS__,
-  "simplifyPostsDisplay": __SIMPLIFY_POST_DISPLAY__
-  "showActorJson": __SHOW_ACTOR_JSON__
-  "showPostsJson": __SHOW_POSTS_JSON__
-  "imagesCompactLayout": _IMAGES_COMPACT_LAYOUT_
-  "hideNoAltTextNotice": _HIDE_NO_ALT_TEXT_NOTICE_
-  "appTitle": _APP_TITLE_
+  "simplifyPostsDisplay": __SIMPLIFY_POST_DISPLAY__,
+  "loopGifs": __LOOP_GIFS__,
+  "showActorJson": __SHOW_ACTOR_JSON__,
+  "showPostsJson": __SHOW_POSTS_JSON__,
+  "imagesCompactLayout": __IMAGES_COMPACT_LAYOUT__,
+  "hideNoAltTextNotice": __HIDE_NO_ALT_TEXT_NOTICE__,
+  "appTitle": __APP_TITLE__
 };
