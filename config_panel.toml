@@ -114,6 +114,17 @@ name.fr = "Configuration principale"
         help.fr = "Définir le titre de l'application (balise `<title>` du navigateur). Le texte ` — MARL` demeurera toutefois ajouté à la fin."
         visible = "archives_paths"
 
+        [main.server_mode.loopGifs]
+        ask.en = "Loop GIFs"
+        ask.fr = "Lecture des GIFs"
+        type = "boolean"
+        help.en = "Auto-play and loop videos that are short (< 10 seconds) and have no sound."
+        help.fr = "Lecture automatique et en boucle des vidéos courtes (< 10 secondes) et muettes"
+        yes = "true"
+        no = "false"
+        default = "true"
+        visible = "archives_paths"
+
         [main.server_mode.showActorJson]
         ask.en = "Display the full JSON data in the actor panel"
         ask.fr = "Afficher les données JSON complètes dans la panneau 'acteurs'"

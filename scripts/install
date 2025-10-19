@@ -42,6 +42,9 @@ ynh_app_setting_set --key=images_compact_layout --value=$images_compact_layout
 hide_no_alt_text_notice=false
 ynh_app_setting_set --key=hide_no_alt_text_notice --value=$hide_no_alt_text_notice
 
+loop_gifs=true
+ynh_app_setting_set --key=loop_gifs --value=$loop_gifs
+
 show_actor_json=false
 ynh_app_setting_set --key=show_actor_json --value=$show_actor_json
 
