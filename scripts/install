@@ -4,43 +4,29 @@
 # IMPORT GENERIC HELPERS
 #=================================================
 
-source _common.sh
+
 source /usr/share/yunohost/helpers
 
 #=================================================
 # INITIALIZE AND STORE SETTINGS
 #=================================================
 
-# Below settings are used as template tags in 'config.js' config file
+# Settings are written both in app's settings.yml and in $install_dir/js/config.js via a custom setter (cf. app scripts/config). They are read from settings.yml only.
+# Variables names initialized below are used as template tags to populate config.js entries during `ynh_config_add` command below.
 archives_paths=""
-ynh_app_setting_set --key=archives_paths --value=$archives_paths
-
-lang="en"
-ynh_app_setting_set --key=lang --value="\"$lang\""
-
-theme="light"
-ynh_app_setting_set --key=theme --value="\"$theme\""
-
+lang="\"auto\""
+theme="\"auto\""
 sort_asc=true
-ynh_app_setting_set --key=sort_asc --value=$sort_asc
-
 page_size=10
-ynh_app_setting_set --key=page_size --value=$page_size
-
 combine_panels=false
-ynh_app_setting_set --key=combine_panels --value=$combine_panels
-
-default_panels=null
-ynh_app_setting_set --key=default_panels --value=$default_panels
-
+default_panel="\"actor\""
+simplify_posts_display=false
+images_compact_layout=false
+hide_no_alt_text_notice=false
+loop_gifs=true
 show_actor_json=false
-ynh_app_setting_set --key=show_actor_json --value=$show_actor_json
-
-simplify_post_display=false
-ynh_app_setting_set --key=simplify_post_display --value=$simplify_post_display
-
 show_posts_json=false
-ynh_app_setting_set --key=show_posts_json --value=$show_posts_json
+app_title="\"Mastodon Archive Reader Lite - MARL\""
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -60,8 +46,8 @@ ynh_script_progression "Adding $app's configuration files..."
 ynh_config_add --template="config.js" --destination="$install_dir/js/config.js"
 
 # FIXME: this should be handled by the core in the future
-chmod 640 "$install_dir/js/config.js"
-chown "$app:www-data" "$install_dir/js/config.js"
+chmod 644 "$install_dir/js/config.js"
+chown "$app:$app" "$install_dir/js/config.js"
 
 #=================================================
 # SYSTEM CONFIGURATION

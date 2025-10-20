@@ -4,7 +4,7 @@
 # IMPORT GENERIC HELPERS
 #=================================================
 
-source _common.sh
+
 source /usr/share/yunohost/helpers
 
 #=================================================
@@ -12,18 +12,35 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Ensuring downward compatibility..."
 
+# from 2.13~ynh1, we don't use YNH built-in settings system but bind everything to the app's config.js file. Let's clean old settings. 
+if ynh_app_upgrading_from_version_before_or_equal_to 2.12~ynh1; then
+	settings_to_clean=( archivesPaths lang theme sortAsc pageSize combinePanels defaultPanel defaultPanels simplifyPostDisplay simplifyPostsDisplay showActorJson showPostsJson )
+	for camel_case_setting_key in "${settings_to_clean[@]}"
+	do
+		snake_case_setting_key="$(echo $camel_case_setting_key | sed 's/\([a-z0-9]\)\([A-Z]\)/\1_\L\2/g')" #changes 'myVar' into 'my_var'
+		ynh_app_setting_delete --key=$camel_case_setting_key
+		ynh_app_setting_delete --key=$snake_case_setting_key
+	done
+fi
+
+# Set default values for new settings if any  
 # Since v2.8~ynh1
-ynh_app_setting_set_default --key=archives_paths --value=""
-ynh_app_setting_set_default --key=lang --value="en"
-ynh_app_setting_set_default --key=theme --value="light"
-ynh_app_setting_set_default --key=sort_asc --value=true
-ynh_app_setting_set_default --key=page_size --value=10
-ynh_app_setting_set_default --key=combine_panels --value=false
-ynh_app_setting_set_default --key=default_panels --value=null
-ynh_app_setting_set_default --key=simplify_post_display --value=false
+archives_paths=${archives_paths:-""}
+lang=${lang:-"\"auto\""}
+theme=${theme:-"\"auto\""}
+sort_asc=${sort_asc:-true}
+page_size=${page_size:-10}
+combine_panels=${combine_panels:-false}
+default_panel=${default_panel:-"\"actor\""}
+simplify_posts_display=${simplify_posts_display:-false}
 # Since v2.9~ynh1 
-ynh_app_setting_set_default --key=show_actor_json --value=false
-ynh_app_setting_set_default --key=show_posts_json --value=false
+show_actor_json=${show_actor_json:-false}
+show_posts_json=${show_posts_json:-false}
+# Since v2.13~ynh1
+images_compact_layout=${images_compact_layout:-false}
+hide_no_alt_text_notice=${hide_no_alt_text_notice:-false}
+app_title=${app_title:-"\"MARL - Mastodon Archive Reader Lite\""}
+loop_gifs=${loop_gifs:-true}
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -46,8 +63,8 @@ ynh_script_progression "Adding $app's configuration files..."
 ynh_config_add --template="config.js" --destination="$install_dir/js/config.js"
 
 # FIXME: this should be handled by the core in the future
-chmod 640 "$install_dir/js/config.js"
-chown "$app:www-data" "$install_dir/js/config.js"
+chmod 644 "$install_dir/js/config.js"
+chown "$app:$app" "$install_dir/js/config.js"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATION
