@@ -99,7 +99,7 @@ name.fr = "Configuration principale"
 	help.fr = "Activer, désactiver et configurer le mode Serveur"
     optional = true
  
-        [main.server_mode.archives_paths]
+        [main.server_mode.archivesPaths]
         ask.en = "Mastodon archive(s) to display"
         ask.fr = "Archive(s) Mastodon à afficher"
         type = "text"
@@ -112,18 +112,19 @@ name.fr = "Configuration principale"
         type = "string"
         help.en = "Set a custom title for the app (`<title>`, shown on the browser tab). The text ` — MARL` will still be added at the end."
         help.fr = "Définir le titre de l'application (balise `<title>` du navigateur). Le texte ` — MARL` demeurera toutefois ajouté à la fin."
-        visible = "archives_paths"
+        default = "MARL - Mastodon Archive Reader Lite"
+        visible = "archivesPaths"
 
         [main.server_mode.loopGifs]
         ask.en = "Loop GIFs"
         ask.fr = "Lecture des GIFs"
         type = "boolean"
         help.en = "Auto-play and loop videos that are short (< 10 seconds) and have no sound."
-        help.fr = "Lecture automatique et en boucle des vidéos courtes (< 10 secondes) et muettes"
+        help.fr = "Lecture automatique et en boucle des vidéos courtes (< 10 secondes) et muettes."
         yes = "true"
         no = "false"
         default = "true"
-        visible = "archives_paths"
+        visible = "archivesPaths"
 
         [main.server_mode.showActorJson]
         ask.en = "Display the full JSON data in the actor panel"
@@ -134,7 +135,7 @@ name.fr = "Configuration principale"
         yes = "true"
         no = "false"
         default = "false"
-        visible = "archives_paths"
+        visible = "archivesPaths"
 
         [main.server_mode.showPostsJson]
         ask.en = "Display the full JSON data related to each post"
@@ -145,4 +146,4 @@ name.fr = "Configuration principale"
         yes = "true"
         no = "false"
         default = "false"
-        visible = "archives_paths"
+        visible = "archivesPaths"

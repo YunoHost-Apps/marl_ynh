@@ -11,9 +11,10 @@ source /usr/share/yunohost/helpers
 # INITIALIZE AND STORE SETTINGS
 #=================================================
 
-# Below settings are used as template tags in 'config.js' config file
+# Settings are written both in app's settings.yml and in $install_dir/js/config.js via a custom setter (cf. app scripts/config). They are read from settings.yml only.
+# Variables names initialized below are used as template tags to populate config.js entries during `ynh_config_add` command below.
 archives_paths=""
-ynh_app_setting_set --key=archives_paths --value=$archives_paths
+ynh_app_setting_set --key=archivesPaths --value=$archives_paths
 
 lang="en"
 ynh_app_setting_set --key=lang --value="\"$lang\""
@@ -22,37 +23,37 @@ theme="light"
 ynh_app_setting_set --key=theme --value="\"$theme\""
 
 sort_asc=true
-ynh_app_setting_set --key=sort_asc --value=$sort_asc
+ynh_app_setting_set --key=sortAsc --value=$sort_asc
 
 page_size=10
-ynh_app_setting_set --key=page_size --value=$page_size
+ynh_app_setting_set --key=pageSize --value=$page_size
 
 combine_panels=false
-ynh_app_setting_set --key=combine_panels --value=$combine_panels
+ynh_app_setting_set --key=combinePanels --value=$combine_panels
 
 default_panels=null
-ynh_app_setting_set --key=default_panels --value=$default_panels
+ynh_app_setting_set --key=defaultPanels --value=$default_panels
 
 simplify_post_display=false
-ynh_app_setting_set --key=simplify_post_display --value=$simplify_post_display
+ynh_app_setting_set --key=simplifyPostDisplay --value=$simplify_post_display
 
 images_compact_layout=false
-ynh_app_setting_set --key=images_compact_layout --value=$images_compact_layout
+ynh_app_setting_set --key=imagesCompactLayout --value=$images_compact_layout
 
 hide_no_alt_text_notice=false
-ynh_app_setting_set --key=hide_no_alt_text_notice --value=$hide_no_alt_text_notice
+ynh_app_setting_set --key=hideNoAltTextNotice --value=$hide_no_alt_text_notice
 
 loop_gifs=true
-ynh_app_setting_set --key=loop_gifs --value=$loop_gifs
+ynh_app_setting_set --key=loopGifs --value=$loop_gifs
 
 show_actor_json=false
-ynh_app_setting_set --key=show_actor_json --value=$show_actor_json
+ynh_app_setting_set --key=showActorJson --value=$show_actor_json
 
 show_posts_json=false
-ynh_app_setting_set --key=show_posts_json --value=$show_posts_json
+ynh_app_setting_set --key=showPostsJson --value=$show_posts_json
 
-app_title=""
-ynh_app_setting_set --key=app_title --value=$app_title
+app_title="Mastodon Archive Reader Lite - MARL"
+ynh_app_setting_set --key=appTitle --value="\"$app_title\""
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
