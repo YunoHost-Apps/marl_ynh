@@ -21,6 +21,7 @@ name.fr = "Configuration principale"
         default = "en"
         help.en = "If set to `auto`, the app will attempt to use the same language as the user's browser (if available for the app)."
         help.fr = "En sélectionnant `auto`, l'application utilisera la préférence utilisateur définie par le navigateur (pourvu que cette traduction soit disponible)."
+		bind = "lang:__INSTALL_DIR__/js/config.js"
         
         [main.default_config.theme]
         ask.en = "Theme"
@@ -30,8 +31,9 @@ name.fr = "Configuration principale"
         default = "light"
         help.en = "If set to `auto`, the app will follow the user preference (set in their browser or OS)."
         help.fr = "En sélectionnant `auto`, l'application utilisera la préférence utilisateur définie par le navigateur ou le système d'exploitation"
+		bind = "theme:__INSTALL_DIR__/js/config.js"
         
-        [main.default_config.sortAsc]
+        [main.default_config.sort_asc]
         ask.en = "Sort posts chronologically"
         ask.fr = "Trier les posts chronologiquement"
         type = "boolean"
@@ -40,8 +42,9 @@ name.fr = "Configuration principale"
         default = "true"
         help.en = "If activated, oldests posts will come first"
         help.fr = "Si activé, les posts les plus anciens viendront en premier"
-        
-        [main.default_config.pageSize]
+		bind = "sortAsc:__INSTALL_DIR__/js/config.js"
+
+        [main.default_config.page_size]
         ask.en = "Number of posts per page"
         ask.fr = "Nombre de posts par page"
         type = "number"
@@ -49,16 +52,18 @@ name.fr = "Configuration principale"
         default = 10
         help.en = "Large values may slow down the app significantly."
         help.fr = "Une grande valeur peut ralentir significativement l'application."
+		bind = "pageSize:__INSTALL_DIR__/js/config.js"
         
-        [main.default_config.combinePanels]
+        [main.default_config.combine_panels]
         ask.en = "Combine the panels into one sidebar on large screens"
         ask.fr = "Combiner les panneaux en une barre latérale sur les grands écrans"
         type = "boolean"
         yes = "true"
         no = "false"
         default = "false"
+		bind = "combinePanels:__INSTALL_DIR__/js/config.js"
 
-        [main.default_config.defaultPanel]
+        [main.default_config.default_panel]
         ask.en = "Sidebar default panel"
         ask.fr = "Panneau de barre latérale par défault"
         type = "select"
@@ -66,31 +71,35 @@ name.fr = "Configuration principale"
         default = "actor"
         help.en = "If 'empty' option is set, no panel will be initially displayed."
         help.fr = "Si l'option 'empty' est sélectionnée, aucune panneau ne sera affiché par défaut"
-        visible = "combinePanels == true"
+        visible = "combine_panels == true"
+		bind = "defaultPanel:__INSTALL_DIR__/js/config.js"
 
-        [main.default_config.simplifyPostsDisplay]
+        [main.default_config.simplify_posts_display]
         ask.en = "Hide some technical or redundant elements in posts display"
         ask.fr = "Cacher éléments techniques ou redondants dans les posts"
         type = "boolean"
         yes = "true"
         no = "false"
         default = "false"
+		bind = "simplifyPostsDisplay:__INSTALL_DIR__/js/config.js"
 
-        [main.default_config.imagesCompactLayout]
+        [main.default_config.images_compact_layout]
         ask.en = "Use compact layout for images"
         ask.fr = "Utiliser une mise en page compacte pour les images"
         type = "boolean"
         yes = "true"
         no = "false"
         default = "false"
+		bind = "imagesCompactLayout:__INSTALL_DIR__/js/config.js"
 
-        [main.default_config.hideNoAltTextNotice]
+        [main.default_config.hide_no_alt_text_notice]
         ask.en = "Hide the warning icon when an image has no alt text"
         ask.fr = "Cacher l'icone d'avertissement quand une image n'a pas de champ `alt`"
         type = "boolean"
         yes = "true"
         no = "false"
         default = "false"
+		bind = "hideNoAltTextNotice:__INSTALL_DIR__/js/config.js"
 
     [main.server_mode]
     name.en = "Server mode"
@@ -99,23 +108,25 @@ name.fr = "Configuration principale"
 	help.fr = "Activer, désactiver et configurer le mode Serveur"
     optional = true
  
-        [main.server_mode.archivesPaths]
+        [main.server_mode.archives_paths]
         ask.en = "Mastodon archive(s) to display"
         ask.fr = "Archive(s) Mastodon à afficher"
         type = "text"
         help.en = "List one path to uncompressed Mastodon archive directory per line.\nPath can also point to external servers provided CORS headers are enabled.\nTo switch back from Server Mode to Local mode, simply remove all URI and save."
         help.fr = "Indiquez un chemin vers un dossier contenant une archive décompressée de Mastodon par ligne.\nLes chemins peuvent pointer vers des serveurs externes pourvu que les en-têtes CORS soient activées.\nPour repasser du mode Serveur au mode Local, il vous suffit de supprimer toutes les URI et de sauvegarder."
+		bind = "archivesPaths:__INSTALL_DIR__/js/config.js"
 
-        [main.server_mode.appTitle]
+        [main.server_mode.app_title]
         ask.en = "Custom app title"
         ask.fr = "Titre d'application personnalisé"
         type = "string"
         help.en = "Set a custom title for the app (`<title>`, shown on the browser tab). The text ` — MARL` will still be added at the end."
         help.fr = "Définir le titre de l'application (balise `<title>` du navigateur). Le texte ` — MARL` demeurera toutefois ajouté à la fin."
         default = "MARL - Mastodon Archive Reader Lite"
-        visible = "archivesPaths"
+        visible = "archives_paths"
+		bind = "appTitle:__INSTALL_DIR__/js/config.js"
 
-        [main.server_mode.loopGifs]
+        [main.server_mode.loop_gifs]
         ask.en = "Loop GIFs"
         ask.fr = "Lecture des GIFs"
         type = "boolean"
@@ -124,9 +135,10 @@ name.fr = "Configuration principale"
         yes = "true"
         no = "false"
         default = "true"
-        visible = "archivesPaths"
+        visible = "archives_paths"
+		bind = "loopGifs:__INSTALL_DIR__/js/config.js"
 
-        [main.server_mode.showActorJson]
+        [main.server_mode.show_actor_json]
         ask.en = "Display the full JSON data in the actor panel"
         ask.fr = "Afficher les données JSON complètes dans la panneau 'acteurs'"
         type = "boolean"
@@ -135,9 +147,10 @@ name.fr = "Configuration principale"
         yes = "true"
         no = "false"
         default = "false"
-        visible = "archivesPaths"
+        visible = "archives_paths"
+		bind = "showActorJson:__INSTALL_DIR__/js/config.js"
 
-        [main.server_mode.showPostsJson]
+        [main.server_mode.show_posts_json]
         ask.en = "Display the full JSON data related to each post"
         ask.fr = "Afficher les données JSON complètes liées à chaque post"
         type = "boolean"
@@ -146,4 +159,5 @@ name.fr = "Configuration principale"
         yes = "true"
         no = "false"
         default = "false"
-        visible = "archivesPaths"
+        visible = "archives_paths"
+		bind = "showPostsJson:__INSTALL_DIR__/js/config.js"
