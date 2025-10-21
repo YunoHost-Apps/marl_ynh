@@ -114,7 +114,7 @@ name.fr = "Configuration principale"
         type = "text"
         help.en = "List one path to uncompressed Mastodon archive directory per line.\nPath can also point to external servers provided CORS headers are enabled.\nTo switch back from Server Mode to Local mode, simply remove all URI and save."
         help.fr = "Indiquez un chemin vers un dossier contenant une archive décompressée de Mastodon par ligne.\nLes chemins peuvent pointer vers des serveurs externes pourvu que les en-têtes CORS soient activées.\nPour repasser du mode Serveur au mode Local, il vous suffit de supprimer toutes les URI et de sauvegarder."
-		bind = "archivesPaths:__INSTALL_DIR__/js/config.js"
+		bind = "null"
 
         [main.server_mode.app_title]
         ask.en = "Custom app title"
